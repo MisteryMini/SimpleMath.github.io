@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+  <meta charset="UTF-8">
+  <title>Тренажер додавання</title>
+  <style>
+    body {
+      font-family: sans-serif;
+      padding: 20px;
+      background: #f0f0f0;
+    }
+    input, button {
+      padding: 8px;
+      font-size: 16px;
+      margin: 5px;
+    }
+    #stars {
+      font-size: 20px;
+      color: gold;
+    }
+  </style>
+</head>
+<body>
+  <h1>Тренажер додавання</h1>
+  <p id="task">Натисни "Старт" щоб почати</p>
+  <input type="number" id="answer" placeholder="Введи відповідь" disabled>
+  <button onclick="checkAnswer()" id="submitBtn" disabled>Перевірити</button>
+  <button onclick="nextTask()">Старт</button>
+  <p id="feedback"></p>
+  <p id="stars"></p>
+
+  <script>
+    let num1 = 0;
+    let num2 = 0;
+    let correctAnswer = 0;
+    let starCount = 0;
+
+    function nextTask() {
+      num1 = Math.floor(Math.random() * 100);
+      num2 = Math.floor(Math.random() * 100);
+      correctAnswer = num1 + num2;
+      document.getElementById("task").textContent = `${num1} + ${num2} = ?`;
+      document.getElementById("answer").value = "";
+      document.getElementById("answer").disabled = false;
+      document.getElementById("submitBtn").disabled = false;
+      document.getElementById("feedback").textContent = "";
+    }
+
+    function checkAnswer() {
+      const userAnswer = parseInt(document.getElementById("answer").value);
+      if (userAnswer === correctAnswer) {
+        starCount++;
+        document.getElementById("feedback").textContent = "✅ Правильно!";
+        document.getElementById("stars").textContent = `⭐ Кількість: ${starCount}`;
+        nextTask();
+      } else {
+        document.getElementById("feedback").textContent = "❌ Неправильно. Спробуй ще!";
+      }
+    }
+  </script>
+</body>
+</html>
